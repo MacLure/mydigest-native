@@ -8,6 +8,7 @@
 
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
+import { getWeather } from "./service";
 
 type Props = {};
 export default class Weather extends Component<Props> {
@@ -16,11 +17,15 @@ export default class Weather extends Component<Props> {
     this.state = {
       ready: false,
       where: { lat: null, lon: null },
-      error: null
+      error: null,
+      weather: {},
+      tempPerc: {}
     };
   }
 
   componentDidMount() {
+    this.getWeather();
+
     let geoOptions = {
       enableHighAccuracy: true,
       timeOut: 20000,
@@ -46,10 +51,30 @@ export default class Weather extends Component<Props> {
     this.setState({ error: error.message });
   };
 
+  getWeather = () => {
+    getWeather()
+      .then(weather => {
+        this.setState({
+          weather: weather.weather[0],
+          tempPerc: weather.main,
+          refreshing: false
+        });
+      })
+      .catch(() => this.setState({ refreshing: false }));
+  };
+
   render() {
+    const weather = this.state.weather.main;
+    const tempMin = Math.round(this.state.tempPerc.temp_min - 273.15);
+    const tempMax = Math.round(this.state.tempPerc.temp_max - 273.15);
+
     return (
       <View>
-        <Text style={styles.welcome}>天気</Text>
+        <Text>天気</Text>
+        <Text>{weather}</Text>
+        <Text>{tempMax} oC</Text>
+        <Text>{tempMin} oC</Text>
+
         {!this.state.ready && <Text>Using Geolocation in React Native.</Text>}
         {this.state.error && <Text>Error.</Text>}
         {this.state.ready && (
@@ -65,7 +90,7 @@ export default class Weather extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF"
