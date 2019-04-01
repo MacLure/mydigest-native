@@ -35,9 +35,13 @@ export default class News extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text>ニュース</Text>
-        {this.state.businessArticles.map(article => (
-          <Text key={article.url}>{article.title}</Text>
-        ))}
+        <View style={styles.article}>
+          {this.state.businessArticles.map(article => (
+            <Text key={article.url} style={styles.article}>
+              {article.title}
+            </Text>
+          ))}
+        </View>
       </View>
     );
   }
@@ -50,14 +54,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#F5FCFF"
   },
-  welcome: {
-    fontSize: 50,
-    textAlign: "center",
-    margin: 10
+  articles: {
+    textAlign: "left"
   },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
+  article: {
+    fontSize: 12,
+    margin: 5
   }
 });
