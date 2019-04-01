@@ -19,13 +19,12 @@ export default class Weather extends Component<Props> {
       where: { lat: null, lon: null },
       error: null,
       weather: {},
-      tempPerc: {}
+      tempPerc: {},
+      name: null
     };
   }
 
   componentDidMount() {
-    this.getWeather();
-
     let geoOptions = {
       enableHighAccuracy: true,
       timeOut: 20000,
@@ -39,12 +38,14 @@ export default class Weather extends Component<Props> {
     ); // takes 3 arguments
   }
 
+  componentDidUpdate() {}
+
   geoSuccess = position => {
-    console.log(position.coords.latitude);
     this.setState({
       ready: true,
       where: { lat: position.coords.latitude, lon: position.coords.longitude }
     });
+    this.getWeather();
   };
 
   geoFailure = err => {
@@ -52,11 +53,12 @@ export default class Weather extends Component<Props> {
   };
 
   getWeather = () => {
-    getWeather()
+    getWeather(this.state.where.lat, this.state.where.lon)
       .then(weather => {
         this.setState({
           weather: weather.weather[0],
           tempPerc: weather.main,
+          city: weather.name,
           refreshing: false
         });
       })
@@ -64,6 +66,7 @@ export default class Weather extends Component<Props> {
   };
 
   render() {
+    const city = this.state.city;
     const weather = this.state.weather.main;
     const tempMin = Math.round(this.state.tempPerc.temp_min - 273.15);
     const tempMax = Math.round(this.state.tempPerc.temp_max - 273.15);
@@ -71,6 +74,7 @@ export default class Weather extends Component<Props> {
     return (
       <View>
         <Text>天気</Text>
+        <Text>{city}</Text>
         <Text>{weather}</Text>
         <Text>{tempMax} oC</Text>
         <Text>{tempMin} oC</Text>
