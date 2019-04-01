@@ -9,6 +9,7 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Weather from "./Weather";
+import Currency from "./Currency";
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -17,7 +18,7 @@ export default class App extends Component<Props> {
       <View style={styles.container}>
         <Text style={styles.welcome}>マイ新聞</Text>
         <Weather />
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
+        <Currency />
       </View>
     );
   }
