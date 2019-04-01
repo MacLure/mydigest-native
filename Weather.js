@@ -8,16 +8,13 @@
 
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
-import Weather from "./Weather";
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class Weather extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>マイ新聞</Text>
-        <Weather />
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
+      <View>
+        <Text style={styles.welcome}>天気</Text>
       </View>
     );
   }
