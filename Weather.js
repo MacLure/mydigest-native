@@ -38,8 +38,6 @@ export default class Weather extends Component<Props> {
     ); // takes 3 arguments
   }
 
-  componentDidUpdate() {}
-
   geoSuccess = position => {
     this.setState({
       ready: true,
@@ -83,8 +81,8 @@ export default class Weather extends Component<Props> {
         {this.state.error && <Text>Error.</Text>}
         {this.state.ready && (
           <View>
-            <Text>緯度: {this.state.where.lat}</Text>
-            <Text>軽度: {this.state.where.lon}</Text>
+            <Text>緯度: {Math.round(this.state.where.lat)}</Text>
+            <Text>軽度: {Math.round(this.state.where.lon)}</Text>
           </View>
         )}
       </View>

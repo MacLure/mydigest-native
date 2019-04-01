@@ -3,10 +3,12 @@ const key = "086a7a7579144fe6a410f78be82dd0ff";
 const currenciesKey = "0ac8dc7e6d8fdcb8572ff00e3f012059";
 const weatherKey = "53922eaaa9c69ae715892dc3b0b1dcfd";
 
-export async function getCanadaNews() {
+export async function getJpNews() {
   let result = await fetch(
     `${endPointRoot}/top-headlines?country=jp&apiKey=${key}`
   ).then(response => response.json());
+  console.log(result);
+
   return result.articles;
 }
 
@@ -96,6 +98,5 @@ export async function getWeather(lat, lon) {
   let result = await fetch(
     `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=53922eaaa9c69ae715892dc3b0b1dcfd`
   ).then(response => response.json());
-  console.log(result);
   return result;
 }

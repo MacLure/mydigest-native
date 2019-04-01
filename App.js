@@ -10,6 +10,7 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Weather from "./Weather";
 import Currency from "./Currency";
+import News from "./News";
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -19,6 +20,7 @@ export default class App extends Component<Props> {
         <Text style={styles.welcome}>マイ新聞</Text>
         <Weather />
         <Currency />
+        <News />
       </View>
     );
   }
